@@ -48,6 +48,7 @@ router.post(
 
       user = new User(req.body);
       await user.save();
+      
 
       const token = jwt.sign(
         { userId: user.id },
@@ -62,7 +63,7 @@ router.post(
         secure: process.env.NODE_ENV === "production",
         maxAge: 86400000,
       });
-      return res.status(200).send({ message: "User registered OK" });
+      return res.status(200).send({ message: "User registered " });
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: "Something went wrong" });

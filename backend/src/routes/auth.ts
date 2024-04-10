@@ -15,15 +15,19 @@ router.post(
       min: 6,
     }),
   ],
+ 
   async (req: Request, res: Response) => {
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ message: errors.array() });
     }
+   
 
     const { email, password } = req.body;
 
     try {
+
       const user = await User.findOne({ email });
       if (!user) {
         return res.status(400).json({ message: "Invalid Credentials" });
@@ -49,6 +53,7 @@ router.post(
       });
       res.status(200).json({ userId: user._id });
     } catch (error) {
+     
       console.log(error);
       res.status(500).json({ message: "Something went wrong" });
     }
